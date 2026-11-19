@@ -2,7 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql2/promise');
-
+const fs = require('fs');
+const path = require('path');
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -14,9 +15,9 @@ const pool = mysql.createPool({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   waitForConnections: true,
-  connectionLimit: 5,
+  connectionLimit: 6,
+  ssl: { ca: fs.readFileSync(path.join(__dirname, 'global-bundle.pem')) },
 });
-
 app.get('/health', (req, res) => {
   res.json({ status: 'ok', app: 'notify-me' });
 });
