@@ -30,6 +30,7 @@ app.get('/api/db-check', async (req, res) => {
     res.status(500).json({ db: 'not connected', error: err.message });
   }
 });
+app.use(express.static(path.join(__dirname, '..', 'frontend')));
 require('./routes')(app, pool);
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
