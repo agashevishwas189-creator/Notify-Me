@@ -3,7 +3,7 @@ pipeline {
 
   environment {
     SONAR_PROJECT = 'notify-me'
-    DH = credentials('dockerhub-creds')
+    DH = credentials('docker-id')
   }
 
   stages {
