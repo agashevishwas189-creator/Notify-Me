@@ -27,6 +27,7 @@ pipeline {
             docker run --rm --network host -u "$(id -u):$(id -g)" \
               -e SONAR_HOST_URL=http://localhost:9000 \
               -e SONAR_TOKEN=$SONAR_TOKEN \
+              -e SONAR_USER_HOME=/tmp/.sonar \
               -v "$WORKSPACE/backend":/usr/src \
               sonarsource/sonar-scanner-cli \
               -Dsonar.projectKey=$SONAR_PROJECT \
