@@ -22,5 +22,16 @@ CREATE TABLE IF NOT EXISTS subscribers (
   FOREIGN KEY (stream_id) REFERENCES streams(id)
 );
 
+CREATE TABLE IF NOT EXISTS reminders_sent (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  subscriber_id INT NOT NULL,
+  round_id INT NOT NULL,
+  reminder_type VARCHAR(20) NOT NULL,
+  sent_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY uniq_reminder (subscriber_id, round_id, reminder_type),
+  FOREIGN KEY (subscriber_id) REFERENCES subscribers(id),
+  FOREIGN KEY (round_id) REFERENCES cap_rounds(id)
+);
+
 INSERT IGNORE INTO streams (name) VALUES
   ('Engineering'), ('Pharmacy'), ('MBA'), ('MCA');
